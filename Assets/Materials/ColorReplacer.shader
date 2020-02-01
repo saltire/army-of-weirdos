@@ -1,47 +1,39 @@
-﻿Shader "Unlit/Color Replacer"
-{
-    Properties
-    {
+﻿Shader "Unlit/Color Replacer" {
+    Properties {
         _MainTex ("Texture", 2D) = "white" {}
         _SrcColor ("Source Color", Color) = (1.0, 0.0, 1.0)
         _DestColor ("Destination Color", Color) = (0.0, 1.0, 0.0)
         _HueThreshold ("Hue Threshold", Float) = 0.1
     }
-    SubShader
-    {
+
+    SubShader {
         Blend SrcAlpha OneMinusSrcAlpha
         Cull Off
 
-        Pass
-        {
+        Pass {
             CGPROGRAM
-            // use "vert" function as the vertex shader
             #pragma vertex vert
-            // use "frag" function as the __pixel__ (fragment) shader
             #pragma fragment frag
 
-            // vertex shader inputs
-            struct appdata
-            {
-                float4 vertex : POSITION; // vertex position
-                float2 uv : TEXCOORD0; // texture coordinate
+            sampler2D _MainTex;
+            fixed3 _SrcColor;
+            fixed3 _DestColor;
+            fixed _HueThreshold;
+
+            struct appdata {
+                float2 uv : TEXCOORD0;
+                float4 vertex : POSITION;
             };
 
-            // vertex shader outputs ("vertex to fragment")
-            struct v2f
-            {
-                float2 uv : TEXCOORD0; // texture coordinate
-                float4 vertex : SV_POSITION; // clip space position
+            struct v2f {
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
             };
 
             // vertex shader
-            v2f vert (appdata v)
-            {
+            v2f vert (appdata v) {
                 v2f o;
-                // transform position to clip space
-                // (multiply with model*view*projection matrix)
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                // just pass the texture coordinate
                 o.uv = v.uv;
                 return o;
             }
@@ -62,17 +54,8 @@
                 return c.z * lerp(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
             }
 
-            // texture we will sample
-            sampler2D _MainTex;
-            fixed3 _SrcColor;
-            fixed3 _DestColor;
-            fixed _HueThreshold;
-
-            // pixel shader; returns low precision ("fixed4" type)
-            // color ("SV_Target" semantic)
-            fixed4 frag (v2f i) : SV_Target
-            {
-                fixed4 thisRGBA = (tex2D(_MainTex, i.uv));
+            fixed4 frag (v2f i) : SV_TARGET {
+                fixed4 thisRGBA = tex2D(_MainTex, i.uv);
                 fixed3 thisHSV = rgb2hsv((fixed3)thisRGBA);
 
                 fixed3 srcHSV = rgb2hsv(_SrcColor);
@@ -86,6 +69,7 @@
 
                 return thisRGBA;
             }
+
             ENDCG
         }
     }
