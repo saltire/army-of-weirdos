@@ -34,7 +34,7 @@ Shader "Unlit/Two Sided" {
             }
         
             fixed4 frag (v2f i, fixed isFront : VFACE) : SV_TARGET {
-                if (isFront < 0.0f) {
+                if (isFront > 0.0f) {
                     return tex2D(_FrontTex, i.uv);
                 }
                 else {
