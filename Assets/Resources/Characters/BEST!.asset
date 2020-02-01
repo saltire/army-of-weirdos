@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f58d5982f890f14c851be9662de24ff, type: 3}
   m_Name: BEST!
   m_EditorClassIdentifier: 
-  powerLevel: 9000
   portrait: {fileID: 21300000, guid: a03ad1b52482cfe4295428018e1a93a6, type: 3}
-  attackType: 0
+  attacks:
+  - name: Rock of Ages
+    rock: 5
+    scissors: 0
+    paper: 0
+  - name: Flash of the Blade
+    rock: 0
+    scissors: 5
+    paper: 0
+  - name: Eternal Knowledge
+    rock: 0
+    scissors: 0
+    paper: 5

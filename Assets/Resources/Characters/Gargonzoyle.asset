@@ -12,6 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f58d5982f890f14c851be9662de24ff, type: 3}
   m_Name: Gargonzoyle
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManagerScriptableObject
-  powerLevel: 5
   portrait: {fileID: 21300000, guid: 32dfc4d4ed1bc8c4abf9c4776ab99255, type: 3}
-  attackType: 0
+  attacks:
+  - name: Halitosis
+    rock: 1
+    scissors: 2
+    paper: 3
+  - name: Penicillin Punch
+    rock: 3
+    scissors: 1
+    paper: 2
+  - name: Spore Injection
+    rock: 2
+    scissors: 3
+    paper: 1
+  - name: Curd Stomp
+    rock: 3
+    scissors: 2
+    paper: 1
