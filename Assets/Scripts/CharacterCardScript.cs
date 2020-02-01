@@ -11,8 +11,6 @@ public class CharacterCardScript : MonoBehaviour {
     public AttackScript attackPrefab;
     public Vector3 attackPosition;
     public float attackSpacing;
-    public Color[] buttonColors;
-    public string[] buttonLabels;
 
     public void SetCharacter(CharacterScriptableObject charObject) {
         character = charObject;
@@ -20,13 +18,18 @@ public class CharacterCardScript : MonoBehaviour {
         portrait.sprite = charObject.portrait;
 
         for (int i = 0; i < charObject.attacks.Length; i++) {
-            AttackScript attack = Instantiate<AttackScript>(attackPrefab);
-            attack.transform.parent = transform;
-            attack.transform.localPosition = attackPosition + Vector3.down * attackSpacing * i;
-            attack.transform.localRotation = Quaternion.identity;
-            attack.button.material.SetColor("_DestColor", buttonColors[i]);
-            attack.buttonLabel.text = buttonLabels[i];
-            attack.attackName.text = charObject.attacks[i].name;
+            AttackScript attackLabel = Instantiate<AttackScript>(attackPrefab);
+            attackLabel.transform.parent = transform;
+            attackLabel.transform.localPosition = attackPosition + Vector3.down * attackSpacing * i;
+            attackLabel.transform.localRotation = Quaternion.identity;
+
+            attackLabel.SetAttack(i, charObject.attacks[i]);
+        }
+    }
+
+    public void ToggleAttackIcons(bool show) {
+        foreach (AttackScript attackLabel in GetComponentsInChildren<AttackScript>()) {
+            attackLabel.ToggleAttackIcons(show);
         }
     }
 }

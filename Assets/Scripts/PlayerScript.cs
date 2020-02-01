@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerScript : MonoBehaviour {
     public Color playerColor;
 
+    public SpriteRenderer playerSprite;
     public Transform cardPlaceholder;
     public Transform deckPlaceholder;
 
@@ -14,18 +15,33 @@ public class PlayerScript : MonoBehaviour {
 
     public Queue<GameObject> playerCards = new Queue<GameObject>();
 
+    public bool showAttackValues = false;
+
+    CharacterCardScript currentCard;
+
     void Start() {
         if (playerColor != null) {
-            GetComponent<SpriteRenderer>().material.SetColor("_DestColor", playerColor);
+            playerSprite.material.SetColor("_DestColor", playerColor);
         }
     }
 
     public void OnFire(InputAction.CallbackContext context) {
         if (context.performed) {
-            GetComponent<SpriteRenderer>().material.SetColor("_DestColor", Color.magenta);
+            playerSprite.material.SetColor("_DestColor", Color.magenta);
         }
         else if (context.canceled) {
-            GetComponent<SpriteRenderer>().material.SetColor("_DestColor", playerColor);
+            playerSprite.material.SetColor("_DestColor", playerColor);
+        }
+    }
+
+    public void ToggleAttackIcons(InputAction.CallbackContext context) {
+        if (currentCard != null) {
+            if (context.performed) {
+                currentCard.ToggleAttackIcons(true);
+            }
+            else if (context.canceled) {
+                currentCard.ToggleAttackIcons(false);
+            }
         }
     }
 
@@ -34,18 +50,21 @@ public class PlayerScript : MonoBehaviour {
     }
 
     IEnumerator FlipTopCard() {
-        GameObject card = playerCards.Peek();
+        currentCard = playerCards.Peek().GetComponent<CharacterCardScript>();
 
-        card.GetComponent<CharacterCardScript>().portrait.material.SetColor("_DestColor", playerColor);
+        currentCard.portrait.material.SetColor("_DestColor", playerColor);
+        currentCard.ToggleAttackIcons(false);
 
-        Vector3 startPos = card.transform.position;
-        Quaternion startRot = card.transform.rotation;
+        Vector3 startPos = currentCard.transform.position;
+        Quaternion startRot = currentCard.transform.rotation;
         float startTime = Time.time;
         while (Time.time < startTime + cardFlipDuration) {
             float step = Mathf.SmoothStep(0, 1, (Time.time - startTime) / cardFlipDuration);
-            card.transform.position = Vector3.Lerp(startPos, cardPlaceholder.position, step);
-            card.transform.rotation = Quaternion.Lerp(startRot, cardPlaceholder.rotation, step);
+            currentCard.transform.position = Vector3.Lerp(startPos, cardPlaceholder.position, step);
+            currentCard.transform.rotation = Quaternion.Lerp(startRot, cardPlaceholder.rotation, step);
             yield return null;
         }
+
+        playerSprite.enabled = true;
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5612019559480101408
+--- !u!1 &2338287244662525097
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5612019559480101422}
-  - component: {fileID: 3003575274810013595}
-  - component: {fileID: 7301372012741164676}
-  - component: {fileID: 5798892270336729814}
+  - component: {fileID: 13268158036449723}
+  - component: {fileID: 8989694027725921955}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -19,29 +17,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5612019559480101422
+--- !u!4 &13268158036449723
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5612019559480101408}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 2338287244662525097}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4252637021446598715}
-  - {fileID: 5419787974125662749}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 5612019559480101422}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3003575274810013595
+--- !u!212 &8989694027725921955
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5612019559480101408}
+  m_GameObject: {fileID: 2338287244662525097}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -85,6 +81,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5612019559480101408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5612019559480101422}
+  - component: {fileID: 7301372012741164676}
+  - component: {fileID: 5798892270336729814}
+  m_Layer: 0
+  m_Name: player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5612019559480101422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5612019559480101408}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 13268158036449723}
+  - {fileID: 4252637021446598715}
+  - {fileID: 5419787974125662749}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7301372012741164676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +209,21 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3fb57df9-8247-45de-a2c9-b134603629d2
     m_ActionName: UI/TrackedDeviceSelect
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5798892270336729814}
+        m_MethodName: ToggleAttackIcons
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_ActionId: 2997e4d0-0a9d-474c-b6e3-a70972f7238e
+    m_ActionName: Player/Show Attack Values
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -196,9 +242,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerColor: {r: 0.96055627, g: 1, b: 0, a: 1}
+  playerSprite: {fileID: 8989694027725921955}
   cardPlaceholder: {fileID: 4252637021446598715}
   deckPlaceholder: {fileID: 5419787974125662749}
   cardFlipDuration: 0.3
+  showAttackValues: 0
 --- !u!1001 &624672693256921106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -249,7 +297,7 @@ PrefabInstance:
     - target: {fileID: 4872258124918460943, guid: 700f8656558e2a44bb42088f9fb2006a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4872258124918460943, guid: 700f8656558e2a44bb42088f9fb2006a,
         type: 3}
@@ -324,7 +372,7 @@ PrefabInstance:
     - target: {fileID: 4872258124918460943, guid: 700f8656558e2a44bb42088f9fb2006a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4872258124918460943, guid: 700f8656558e2a44bb42088f9fb2006a,
         type: 3}

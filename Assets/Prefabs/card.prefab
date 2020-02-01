@@ -294,18 +294,8 @@ MonoBehaviour:
   portrait: {fileID: 1100187550345026581}
   attackPrefab: {fileID: 6488417386436774083, guid: c8b40321013cf5349a7cce9321c564dc,
     type: 3}
-  attackPosition: {x: 0, y: -0.1, z: -0.1}
+  attackPosition: {x: 0, y: 3.25, z: -0.1}
   attackSpacing: 0.75
-  buttonColors:
-  - {r: 0.8867924, g: 0.87201256, b: 0, a: 1}
-  - {r: 0, g: 0.58771515, b: 1, a: 1}
-  - {r: 0.37587678, g: 0.8113208, b: 0, a: 1}
-  - {r: 0.8584906, g: 0.14295389, b: 0, a: 1}
-  buttonLabels:
-  - Y
-  - X
-  - A
-  - B
 --- !u!1 &6821144990930804827
 GameObject:
   m_ObjectHideFlags: 0

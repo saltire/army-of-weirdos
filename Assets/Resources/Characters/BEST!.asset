@@ -26,3 +26,7 @@ MonoBehaviour:
     rock: 0
     scissors: 0
     paper: 5
+  - name: Mind Storm
+    rock: 3
+    scissors: 3
+    paper: 3
