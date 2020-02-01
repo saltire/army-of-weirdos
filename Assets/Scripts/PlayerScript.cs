@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerScript : MonoBehaviour {
     public Color playerColor;
 
+    public Transform deckPlaceholder;
+
     public Queue<GameObject> playerCards = new Queue<GameObject>();
 
     void Start() {
