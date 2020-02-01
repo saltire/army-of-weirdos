@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardManagerScript : MonoBehaviour {
+public class CardDealerScript : MonoBehaviour {
     public PlayerScript[] players;
 
     public GameObject cardPrefab;
     public Transform dealerPlaceholder;
     public Vector3 cardSpacing = new Vector3(0, 1f, -0.2f);
     public float cardStackInterval = 0.1f;
+    public float cardDealInterval = 0.1f;
     public float cardDealDuration = 0.3f;
+    public float postInterval = 0.2f;
 
     List<CharacterScriptableObject> characters;
     Stack<GameObject> dealerCards = new Stack<GameObject>();
@@ -25,6 +27,8 @@ public class CardManagerScript : MonoBehaviour {
 
         int cardCount = characters.Count;
         for (int i = 0; i < cardCount; i++) {
+            yield return new WaitForSeconds(cardStackInterval);
+
             GameObject card = Instantiate<GameObject>(cardPrefab, dealerPlaceholder.position + cardSpacing * dealerCards.Count, dealerPlaceholder.rotation);
             card.transform.parent = transform;
             dealerCards.Push(card);
@@ -32,16 +36,13 @@ public class CardManagerScript : MonoBehaviour {
             CharacterScriptableObject character = characters[rnd.Next(characters.Count)];
             card.GetComponent<CharacterCardScript>().SetCharacter(character);
             characters.Remove(character);
-
-            yield return new WaitForSeconds(cardStackInterval);
         }
+        yield return new WaitForSeconds(postInterval);
         
         StartCoroutine("DealCards");
     }
 
     IEnumerator DealCards() {
-        yield return new WaitForSeconds(1);
-
         Stack<GameObject>[] playerCards = new Stack<GameObject>[] {
             new Stack<GameObject>(),
             new Stack<GameObject>(),
@@ -49,6 +50,8 @@ public class CardManagerScript : MonoBehaviour {
 
         int playerIndex = 0;
         while (dealerCards.Count > 0) {
+            yield return new WaitForSeconds(cardDealInterval);
+
             PlayerScript player = players[playerIndex];
 
             GameObject card = dealerCards.Pop();
@@ -62,9 +65,8 @@ public class CardManagerScript : MonoBehaviour {
 
             playerCards[playerIndex].Push(card);
             playerIndex = 1 - playerIndex;
-
-            yield return new WaitForSeconds(0.1f);
         }
+        yield return new WaitForSeconds(postInterval);
 
         // Move cards from each player's stack into a queue.
         for (int p = 0; p < playerCards.Length; p++) {

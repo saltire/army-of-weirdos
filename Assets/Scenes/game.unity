@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 331823468}
   - component: {fileID: 331823467}
   m_Layer: 0
-  m_Name: card manager
+  m_Name: card dealer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -304,7 +304,9 @@ MonoBehaviour:
   dealerPlaceholder: {fileID: 1106965971}
   cardSpacing: {x: 0, y: 0.5, z: -0.2}
   cardStackInterval: 0.1
+  cardDealInterval: 0.1
   cardDealDuration: 0.3
+  postInterval: 0.2
 --- !u!4 &331823468
 Transform:
   m_ObjectHideFlags: 0
