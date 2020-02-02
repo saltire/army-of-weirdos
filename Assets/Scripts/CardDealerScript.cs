@@ -22,6 +22,8 @@ public class CardDealerScript : MonoBehaviour {
     public float finishInterval = 2.0f;
     public float winInterval = 2.0f;
     public string nextScene;
+    public AudioSource audioSource;
+    public AudioClip winSong;
 
     System.Random rnd;
     List<CharacterScriptableObject> characters;
@@ -188,6 +190,10 @@ public class CardDealerScript : MonoBehaviour {
         winTextMesh.text = $"PLAYER {winnerIndex + 1} WINS!";
         winTextMesh.color = Options.playerColors[winnerIndex];
         winText.SetActive(true);
+
+        audioSource.clip = winSong;
+        audioSource.loop = false;
+        audioSource.Play();
 
         yield return new WaitForSeconds(winInterval);
 

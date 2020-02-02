@@ -17,7 +17,7 @@ public class ColorSelectScript : MonoBehaviour {
     }
 
     public void OnNavigate(InputAction.CallbackContext context) {
-        if (context.performed) {
+        if (context.started) {
             if (context.control.name.Equals("left")) {
                 palette.UpdatePlayerColor(playerIndex, -1);
             }
