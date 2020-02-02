@@ -23,7 +23,7 @@ public class PlayerScript : MonoBehaviour {
     public bool waitingForAttack { get; private set; } = false;
     public Attack? selectedAttack { get; private set; }
     public int? finalDamage { get; private set; }
-    public bool waitingForFinish { get; private set; } = false;
+    // public bool waitingForFinish { get; private set; } = false;
 
     public IconScript rockPrefab;
     public IconScript scissorsPrefab;
@@ -85,10 +85,10 @@ public class PlayerScript : MonoBehaviour {
                     readyText.SetActive(true);
                 }
             }
-            else if (waitingForFinish) {
-                waitingForFinish = false;
-                readyText.SetActive(true);
-            }
+            // else if (waitingForFinish) {
+            //     waitingForFinish = false;
+            //     readyText.SetActive(true);
+            // }
         }
     }
 
@@ -150,7 +150,7 @@ public class PlayerScript : MonoBehaviour {
             yield return null;
         }
         
-        waitingForFinish = true;
+        // waitingForFinish = true;
         finalDamage = Mathf.Max(attack.rock - counterattack.paper, 0) + 
             Mathf.Max(attack.scissors - counterattack.rock, 0) + 
             Mathf.Max(attack.paper - counterattack.scissors, 0);

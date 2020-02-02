@@ -17,6 +17,7 @@ public class CardDealerScript : MonoBehaviour {
     public float cardReturnDuration = 0.5f;
     public float postInterval = 0.2f;
     public float readyInterval = 0.5f;
+    public float finishInterval = 2.0f;
 
     System.Random rnd;
     List<CharacterScriptableObject> characters;
@@ -149,14 +150,14 @@ public class CardDealerScript : MonoBehaviour {
             targetQueue.Enqueue(losingPlayer.playerCards.Dequeue());
             targetQueue.Enqueue(winningPlayer.playerCards.Dequeue());
 
-            continueText.SetActive(true);
-
+            // continueText.SetActive(true);
             // Wait for both players to hit a button to finish.
-            while (players.Any(player => player.waitingForFinish)) {
-                yield return null;
-            }
-            continueText.SetActive(false);
-            yield return new WaitForSeconds(readyInterval);
+            // while (players.Any(player => player.waitingForFinish)) {
+            //     yield return null;
+            // }
+            // continueText.SetActive(false);
+            
+            yield return new WaitForSeconds(finishInterval);
             foreach (PlayerScript player in players) {
                 player.FinishRound();
             }
