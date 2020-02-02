@@ -57,6 +57,7 @@ public class PlayerScript : MonoBehaviour {
             yield return null;
         }
 
+        playerSprite.sprite = currentCard.character.portrait;
         playerSprite.enabled = true;
         waitingForAttack = true;
         selectedAttack = null;
@@ -162,6 +163,7 @@ public class PlayerScript : MonoBehaviour {
     public void FinishRound() {
         readyText.SetActive(false);
         winnerText.SetActive(false);
+        playerSprite.enabled = false;
         
         foreach (Transform icon in iconContainer.transform) {
             Destroy(icon.gameObject);

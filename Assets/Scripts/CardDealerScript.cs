@@ -114,7 +114,9 @@ public class CardDealerScript : MonoBehaviour {
             }
 
             // Show the winner text on the winning player.
-            ((players[0].finalDamage > players[1].finalDamage) ? players[0] : players[1]).ShowWinner();
+            PlayerScript winningPlayer = players[0].finalDamage > players[1].finalDamage ? players[0] : players[1];
+            PlayerScript losingPlayer = players[0].finalDamage > players[1].finalDamage ? players[1] : players[0];
+            winningPlayer.ShowWinner();
             continueText.SetActive(true);
 
             // Wait for both players to hit a button to finish.
@@ -127,9 +129,39 @@ public class CardDealerScript : MonoBehaviour {
                 player.FinishRound();
             }
 
-            while (true) {
+            GameObject winningCard = winningPlayer.playerCards.Dequeue();
+            GameObject losingCard = losingPlayer.playerCards.Dequeue();
+
+            Vector3 winningStartPos = winningCard.transform.position;
+            Vector3 winningTargetPos = winningPlayer.deckPlaceholder.position;
+            Quaternion winningStartRot = winningCard.transform.rotation;
+            Quaternion winningTargetRot = winningPlayer.deckPlaceholder.rotation;
+            Vector3 losingStartPos = losingCard.transform.position;
+            Vector3 losingTargetPos = winningPlayer.deckPlaceholder.position + cardSpacing;
+            Quaternion losingStartRot = losingCard.transform.rotation;
+            Quaternion losingTargetRot = winningPlayer.deckPlaceholder.rotation;
+
+            List<Vector3> cardStarts = new List<Vector3>(winningPlayer.playerCards.Select(card => card.transform.position));
+
+            float startTime = Time.time;
+            while (Time.time < startTime + cardDealDuration) {
+                float step = Mathf.SmoothStep(0, 1, (Time.time - startTime) / cardDealDuration);
+                winningCard.transform.position = Vector3.Lerp(winningStartPos, winningTargetPos, step);
+                winningCard.transform.rotation = Quaternion.Lerp(winningStartRot, winningTargetRot, step);
+                losingCard.transform.position = Vector3.Lerp(losingStartPos, losingTargetPos, step);
+                losingCard.transform.rotation = Quaternion.Lerp(losingStartRot, losingTargetRot, step);
+                for (int i = 0; i < winningPlayer.playerCards.Count; i++) {
+                    winningPlayer.playerCards.ElementAt(i).transform.position = Vector3.Lerp(cardStarts[i], cardStarts[i] + cardSpacing * 2, step);
+                }
                 yield return null;
             }
+
+            // Move both cards to the end of the winning player's queue, losing player's first.
+            winningPlayer.playerCards.Enqueue(losingCard);
+            winningPlayer.playerCards.Enqueue(winningCard);
+            yield return new WaitForSeconds(readyInterval);
         }
+
+        Util.Log("Game Over!");
     }
 }
