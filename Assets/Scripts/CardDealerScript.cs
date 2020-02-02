@@ -8,6 +8,8 @@ public class CardDealerScript : MonoBehaviour {
 
     public GameObject cardPrefab;
     public Transform dealerPlaceholder;
+    public GameObject selectAttackText;
+    public GameObject continueText;
     public Vector3 cardSpacing = new Vector3(0, 1f, -0.2f);
     public float cardStackInterval = 0.1f;
     public float cardDealInterval = 0.1f;
@@ -86,15 +88,21 @@ public class CardDealerScript : MonoBehaviour {
             foreach (PlayerScript player in players) {
                 player.StartCoroutine("FlipTopCard");
             }
+
+            // Wait for animations to finish.
+            while (players.Any(player => !player.waitingForAttack)) {
+                yield return null;
+            }
+            selectAttackText.SetActive(true);
+
             // Wait for both players to select an attack.
             while (players.Any(player => player.selectedAttack == null)) {
                 yield return null;
             }
-            
-            // Disable input.
             foreach (PlayerScript player in players) {
-                player.waitingForAttack = false;
+                player.DisableAttackSelect();
             }
+            selectAttackText.SetActive(false);
             yield return new WaitForSeconds(readyInterval);
 
             // Display the attack animations and calculate damage.
@@ -105,7 +113,19 @@ public class CardDealerScript : MonoBehaviour {
                 yield return null;
             }
 
-            Util.Log("Winner:", (players[0].finalDamage > players[1].finalDamage) ? "Player 1" : "Player 2");
+            // Show the winner text on the winning player.
+            ((players[0].finalDamage > players[1].finalDamage) ? players[0] : players[1]).ShowWinner();
+            continueText.SetActive(true);
+
+            // Wait for both players to hit a button to finish.
+            while (players.Any(player => player.waitingForFinish)) {
+                yield return null;
+            }
+            continueText.SetActive(false);
+            yield return new WaitForSeconds(readyInterval);
+            foreach (PlayerScript player in players) {
+                player.FinishRound();
+            }
 
             while (true) {
                 yield return null;

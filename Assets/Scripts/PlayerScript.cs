@@ -14,15 +14,15 @@ public class PlayerScript : MonoBehaviour {
     public Transform deckPlaceholder;
     public Transform iconContainer;
     public GameObject readyText;
+    public GameObject winnerText;
 
     public float cardFlipDuration = 0.3f;
 
-    public bool showAttackValues = false;
-    public bool waitingForAttack = false;
-
     public Queue<GameObject> playerCards { get; } = new Queue<GameObject>();
+    public bool waitingForAttack { get; private set; } = false;
     public Attack? selectedAttack { get; private set; }
     public int? finalDamage { get; private set; }
+    public bool waitingForFinish { get; private set; } = false;
 
     public IconScript rockPrefab;
     public IconScript scissorsPrefab;
@@ -76,18 +76,28 @@ public class PlayerScript : MonoBehaviour {
     }
 
     public void OnAttackSelect(InputAction.CallbackContext context) {
-        if (waitingForAttack && context.performed) {
-            Attack? attack = currentCard.GetButtonAttack(context.control.displayName);
-            if (attack != null) {
-                selectedAttack = attack;
+        if (context.performed) {
+            if (waitingForAttack) {
+                Attack? attack = currentCard.GetButtonAttack(context.control.displayName);
+                if (attack != null) {
+                    selectedAttack = attack;
+                    readyText.SetActive(true);
+                }
+            }
+            else if (waitingForFinish) {
+                waitingForFinish = false;
                 readyText.SetActive(true);
             }
         }
     }
 
+    public void DisableAttackSelect() {
+        waitingForAttack = false;
+    }
+
     public void StartAttack(Attack attack, Attack counterattack) {
         readyText.SetActive(false);
-        
+
         StartCoroutine(ExecuteAttack(attack, counterattack));
     }
 
@@ -138,9 +148,23 @@ public class PlayerScript : MonoBehaviour {
             iconContainer.position = Vector3.Lerp(targetPos, startPos, Mathf.SmoothStep(0, 1, (Time.time - startTime) / iconMoveDuration));
             yield return null;
         }
-
+        
+        waitingForFinish = true;
         finalDamage = Mathf.Max(attack.rock - counterattack.paper, 0) + 
             Mathf.Max(attack.scissors - counterattack.rock, 0) + 
             Mathf.Max(attack.paper - counterattack.scissors, 0);
+    }
+
+    public void ShowWinner() {
+        winnerText.SetActive(true);
+    }
+
+    public void FinishRound() {
+        readyText.SetActive(false);
+        winnerText.SetActive(false);
+        
+        foreach (Transform icon in iconContainer.transform) {
+            Destroy(icon.gameObject);
+        }
     }
 }
