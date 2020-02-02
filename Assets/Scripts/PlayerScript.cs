@@ -10,12 +10,15 @@ public class PlayerScript : MonoBehaviour {
     public SpriteRenderer playerSprite;
     public Transform cardPlaceholder;
     public Transform deckPlaceholder;
+    public GameObject readyText;
 
     public float cardFlipDuration = 0.3f;
 
-    public Queue<GameObject> playerCards = new Queue<GameObject>();
-
     public bool showAttackValues = false;
+    public bool waitingForAttack = false;
+
+    public Queue<GameObject> playerCards { get; } = new Queue<GameObject>();
+    public Attack? selectedAttack { get; private set; }
 
     CharacterCardScript currentCard;
 
@@ -23,30 +26,6 @@ public class PlayerScript : MonoBehaviour {
         if (playerColor != null) {
             playerSprite.material.SetColor("_DestColor", playerColor);
         }
-    }
-
-    public void OnFire(InputAction.CallbackContext context) {
-        if (context.performed) {
-            playerSprite.material.SetColor("_DestColor", Color.magenta);
-        }
-        else if (context.canceled) {
-            playerSprite.material.SetColor("_DestColor", playerColor);
-        }
-    }
-
-    public void ToggleAttackIcons(InputAction.CallbackContext context) {
-        if (currentCard != null) {
-            if (context.performed) {
-                currentCard.ToggleAttackIcons(true);
-            }
-            else if (context.canceled) {
-                currentCard.ToggleAttackIcons(false);
-            }
-        }
-    }
-
-    public void NextCard() {
-        StartCoroutine("FlipTopCard");
     }
 
     IEnumerator FlipTopCard() {
@@ -66,5 +45,29 @@ public class PlayerScript : MonoBehaviour {
         }
 
         playerSprite.enabled = true;
+        waitingForAttack = true;
+        selectedAttack = null;
+        readyText.SetActive(false);
+    }
+
+    public void ToggleAttackIcons(InputAction.CallbackContext context) {
+        if (currentCard != null && waitingForAttack) {
+            if (context.performed) {
+                currentCard.ToggleAttackIcons(true);
+            }
+            else if (context.canceled) {
+                currentCard.ToggleAttackIcons(false);
+            }
+        }
+    }
+
+    public void OnAttackSelect(InputAction.CallbackContext context) {
+        if (waitingForAttack && context.performed) {
+            Attack? attack = currentCard.GetButtonAttack(context.control.displayName);
+            if (attack != null) {
+                selectedAttack = attack;
+                readyText.SetActive(true);
+            }
+        }
     }
 }

@@ -32,4 +32,14 @@ public class CharacterCardScript : MonoBehaviour {
             attackLabel.ToggleAttackIcons(show);
         }
     }
+
+    public Attack? GetButtonAttack(string buttonLabel) {
+        foreach (AttackScript attackLabel in GetComponentsInChildren<AttackScript>()) {
+            if (attackLabel.buttonLabel.text == buttonLabel) {
+                return attackLabel.attack;
+            }
+        }
+
+        return null;
+    }
 }

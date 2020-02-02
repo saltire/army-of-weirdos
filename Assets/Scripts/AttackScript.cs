@@ -19,7 +19,11 @@ public class AttackScript : MonoBehaviour {
     public float iconSpacing;
     public float iconMaxWidth;
 
+    public Attack attack { get; private set; }
+
     public void SetAttack(int buttonIndex, Attack attack) {
+        this.attack = attack;
+
         button.material.SetColor("_DestColor", buttonColors[buttonIndex]);
         buttonLabel.text = buttonLabels[buttonIndex];
 

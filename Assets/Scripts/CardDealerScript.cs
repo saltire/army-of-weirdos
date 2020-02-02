@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CardDealerScript : MonoBehaviour {
@@ -73,8 +74,31 @@ public class CardDealerScript : MonoBehaviour {
             while (playerCards[p].Count > 0) {
                 players[p].playerCards.Enqueue(playerCards[p].Pop());
             }
+        }
 
-            players[p].NextCard();
+        StartCoroutine("Game");
+    }
+
+    IEnumerator Game() {
+        while (players.All(player => player.playerCards.Count > 0)) {
+            // Flip up the top cards.
+            foreach (PlayerScript player in players) {
+                player.StartCoroutine("FlipTopCard");
+            }
+
+            // Wait for both players to select an attack.
+            while (players.Any(player => player.selectedAttack == null)) {
+                yield return null;
+            }
+            
+            // Disable input.
+            foreach (PlayerScript player in players) {
+                player.waitingForAttack = false;
+            }
+
+            while (true) {
+                yield return null;
+            }
         }
     }
 }
