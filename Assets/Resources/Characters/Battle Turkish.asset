@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f58d5982f890f14c851be9662de24ff, type: 3}
-  m_Name: BEST!
+  m_Name: Battle Turkish
   m_EditorClassIdentifier: 
-  portrait: {fileID: 21300000, guid: a03ad1b52482cfe4295428018e1a93a6, type: 3}
+  portrait: {fileID: 21300000, guid: 9699341529d490f4489d14f8609bec4e, type: 3}
   attacks:
-  - name: Rock of Ages
-    rock: 5
-    scissors: 0
-    paper: 0
-  - name: Flash of the Blade
-    rock: 0
-    scissors: 5
-    paper: 0
-  - name: Eternal Knowledge
-    rock: 0
-    scissors: 0
+  - name: Scorpion Sting
+    rock: 3
+    scissors: 2
+    paper: 4
+  - name: Six-way Slash
+    rock: 3
+    scissors: 1
     paper: 5
-  - name: Mind Storm
+  - name: Boa Constrictor
+    rock: 5
+    scissors: 2
+    paper: 2
+  - name: Tail Whip
     rock: 3
     scissors: 3
     paper: 3

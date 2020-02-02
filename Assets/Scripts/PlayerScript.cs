@@ -27,7 +27,6 @@ public class PlayerScript : MonoBehaviour {
     public IconScript rockPrefab;
     public IconScript scissorsPrefab;
     public IconScript paperPrefab;
-    public Vector3 iconPosition;
     public float iconSpacing;
     public float iconScale = 1;
     public float iconMoveDistance = 2;
@@ -113,21 +112,21 @@ public class PlayerScript : MonoBehaviour {
         for (int j = 0; j < attack.rock; j++) {
             IconScript icon = Instantiate<IconScript>(rockPrefab);
             icon.transform.parent = iconContainer;
-            icon.transform.localPosition = iconPosition + xSpacing * j;
+            icon.transform.localPosition = xSpacing * j;
             icon.transform.localScale = Vector3.one * iconScale;
             rockIcons.Add(icon);
         }
         for (int j = 0; j < attack.scissors; j++) {
             IconScript icon = Instantiate<IconScript>(scissorsPrefab);
             icon.transform.parent = iconContainer;
-            icon.transform.localPosition = iconPosition + xSpacing * j + ySpacing;
+            icon.transform.localPosition = xSpacing * j + ySpacing;
             icon.transform.localScale = Vector3.one * iconScale;
             scissorsIcons.Add(icon);
         }
         for (int j = 0; j < attack.paper; j++) {
             IconScript icon = Instantiate<IconScript>(paperPrefab);
             icon.transform.parent = iconContainer;
-            icon.transform.localPosition = iconPosition + xSpacing * j + ySpacing * 2;
+            icon.transform.localPosition = xSpacing * j + ySpacing * 2;
             icon.transform.localScale = Vector3.one * iconScale;
             paperIcons.Add(icon);
         }

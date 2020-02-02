@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f58d5982f890f14c851be9662de24ff, type: 3}
-  m_Name: Gargonzoyle
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnManagerScriptableObject
-  portrait: {fileID: 21300000, guid: 0915ef76d9c32ee4da7e106a353fac86, type: 3}
+  m_Name: Toe-ny Iommi
+  m_EditorClassIdentifier: 
+  portrait: {fileID: 21300000, guid: f895e8471ff5deb4da4e67d1ba2ef575, type: 3}
   attacks:
-  - name: Halitosis
-    rock: 1
-    scissors: 2
-    paper: 3
-  - name: Penicillin Punch
-    rock: 3
-    scissors: 1
-    paper: 2
-  - name: Spore Injection
+  - name: Air Dance
     rock: 2
-    scissors: 3
-    paper: 1
-  - name: Curd Stomp
-    rock: 3
     scissors: 2
-    paper: 1
+    paper: 2
+  - name: Black Oblivion
+    rock: 2
+    scissors: 2
+    paper: 2
+  - name: Evil Eye
+    rock: 2
+    scissors: 2
+    paper: 2
+  - name: Kiss of Death
+    rock: 2
+    scissors: 2
+    paper: 2

@@ -14,6 +14,7 @@ public class CardDealerScript : MonoBehaviour {
     public float cardStackInterval = 0.1f;
     public float cardDealInterval = 0.1f;
     public float cardDealDuration = 0.3f;
+    public float cardReturnDuration = 0.5f;
     public float postInterval = 0.2f;
     public float readyInterval = 0.5f;
 
@@ -144,8 +145,8 @@ public class CardDealerScript : MonoBehaviour {
             List<Vector3> cardStarts = new List<Vector3>(winningPlayer.playerCards.Select(card => card.transform.position));
 
             float startTime = Time.time;
-            while (Time.time < startTime + cardDealDuration) {
-                float step = Mathf.SmoothStep(0, 1, (Time.time - startTime) / cardDealDuration);
+            while (Time.time < startTime + cardReturnDuration) {
+                float step = Mathf.SmoothStep(0, 1, (Time.time - startTime) / cardReturnDuration);
                 winningCard.transform.position = Vector3.Lerp(winningStartPos, winningTargetPos, step);
                 winningCard.transform.rotation = Quaternion.Lerp(winningStartRot, winningTargetRot, step);
                 losingCard.transform.position = Vector3.Lerp(losingStartPos, losingTargetPos, step);

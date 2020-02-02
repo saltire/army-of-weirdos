@@ -10,19 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f58d5982f890f14c851be9662de24ff, type: 3}
-  m_Name: Emog Stoo Ped
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnManagerScriptableObject
-  portrait: {fileID: 21300000, guid: ad69cd1799f5e1840a5223bc980716ef, type: 3}
+  m_Name: Hexapus
+  m_EditorClassIdentifier: 
+  portrait: {fileID: 21300000, guid: f8f204e32164d264eb8b78038426e0ec, type: 3}
   attacks:
-  - name: Pebble
-    rock: 1
-    scissors: 0
-    paper: 0
-  - name: Safety First
-    rock: 0
-    scissors: 1
-    paper: 0
-  - name: Papercut
-    rock: 0
-    scissors: 0
-    paper: 1
+  - name: Slime Time
+    rock: 2
+    scissors: 2
+    paper: 2
+  - name: Sucker Punch
+    rock: 2
+    scissors: 2
+    paper: 2

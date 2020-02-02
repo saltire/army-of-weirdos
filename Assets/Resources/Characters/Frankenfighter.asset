@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f58d5982f890f14c851be9662de24ff, type: 3}
-  m_Name: Gargonzoyle
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnManagerScriptableObject
-  portrait: {fileID: 21300000, guid: 0915ef76d9c32ee4da7e106a353fac86, type: 3}
+  m_Name: Frankenfighter
+  m_EditorClassIdentifier: 
+  portrait: {fileID: 21300000, guid: 8e15ea5c04b52a044b1558e69a4fa744, type: 3}
   attacks:
-  - name: Halitosis
+  - name: Bonecrusher
+    rock: 3
+    scissors: 0
+    paper: 1
+  - name: Tentacle Slam
+    rock: 2
+    scissors: 2
+    paper: 0
+  - name: Mutant Mash
     rock: 1
     scissors: 2
-    paper: 3
-  - name: Penicillin Punch
-    rock: 3
-    scissors: 1
-    paper: 2
-  - name: Spore Injection
-    rock: 2
-    scissors: 3
     paper: 1
-  - name: Curd Stomp
-    rock: 3
+  - name: Boogaloo Bash
+    rock: 1
     scissors: 2
-    paper: 1
+    paper: 2

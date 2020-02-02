@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f58d5982f890f14c851be9662de24ff, type: 3}
-  m_Name: Gargonzoyle
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnManagerScriptableObject
-  portrait: {fileID: 21300000, guid: 0915ef76d9c32ee4da7e106a353fac86, type: 3}
+  m_Name: Shark Bro
+  m_EditorClassIdentifier: 
+  portrait: {fileID: 21300000, guid: 072e70fcaf27ef24bb0b2a461d9cff15, type: 3}
   attacks:
-  - name: Halitosis
-    rock: 1
-    scissors: 2
-    paper: 3
-  - name: Penicillin Punch
+  - name: Flex
     rock: 3
-    scissors: 1
+    scissors: 3
     paper: 2
-  - name: Spore Injection
+  - name: Chomp
     rock: 2
     scissors: 3
-    paper: 1
-  - name: Curd Stomp
-    rock: 3
+    paper: 2
+  - name: Surf and Eat Turf
+    rock: 1
+    scissors: 1
+    paper: 4
+  - name: Shark Fin Suplex
+    rock: 4
     scissors: 2
     paper: 1
