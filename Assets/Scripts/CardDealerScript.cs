@@ -130,36 +130,32 @@ public class CardDealerScript : MonoBehaviour {
                 player.FinishRound();
             }
 
-            GameObject winningCard = winningPlayer.playerCards.Dequeue();
-            GameObject losingCard = losingPlayer.playerCards.Dequeue();
+            // Take the front card from each player's queue
+            // and add both to the end of the winning player's queue, losing card first.
+            winningPlayer.playerCards.Enqueue(losingPlayer.playerCards.Dequeue());
+            winningPlayer.playerCards.Enqueue(winningPlayer.playerCards.Dequeue());
 
-            Vector3 winningStartPos = winningCard.transform.position;
-            Vector3 winningTargetPos = winningPlayer.deckPlaceholder.position;
-            Quaternion winningStartRot = winningCard.transform.rotation;
-            Quaternion winningTargetRot = winningPlayer.deckPlaceholder.rotation;
-            Vector3 losingStartPos = losingCard.transform.position;
-            Vector3 losingTargetPos = winningPlayer.deckPlaceholder.position + cardSpacing;
-            Quaternion losingStartRot = losingCard.transform.rotation;
-            Quaternion losingTargetRot = winningPlayer.deckPlaceholder.rotation;
-
-            List<Vector3> cardStarts = new List<Vector3>(winningPlayer.playerCards.Select(card => card.transform.position));
-
+            // Animate all the cards in the winning player's pile to their new position.
+            List<Vector3> cardPosStarts = new List<Vector3>();
+            List<Quaternion> cardRotStarts = new List<Quaternion>();
+            List<Vector3> cardPosTargets = new List<Vector3>();
+            for (int i = 0; i < winningPlayer.playerCards.Count; i++) {
+                GameObject card = winningPlayer.playerCards.ElementAt(i);
+                cardPosStarts.Add(card.transform.position);
+                cardRotStarts.Add(card.transform.rotation);
+                cardPosTargets.Add(winningPlayer.deckPlaceholder.position + cardSpacing * (winningPlayer.playerCards.Count - i - 1));
+            }
             float startTime = Time.time;
             while (Time.time < startTime + cardReturnDuration) {
                 float step = Mathf.SmoothStep(0, 1, (Time.time - startTime) / cardReturnDuration);
-                winningCard.transform.position = Vector3.Lerp(winningStartPos, winningTargetPos, step);
-                winningCard.transform.rotation = Quaternion.Lerp(winningStartRot, winningTargetRot, step);
-                losingCard.transform.position = Vector3.Lerp(losingStartPos, losingTargetPos, step);
-                losingCard.transform.rotation = Quaternion.Lerp(losingStartRot, losingTargetRot, step);
                 for (int i = 0; i < winningPlayer.playerCards.Count; i++) {
-                    winningPlayer.playerCards.ElementAt(i).transform.position = Vector3.Lerp(cardStarts[i], cardStarts[i] + cardSpacing * 2, step);
+                    GameObject card = winningPlayer.playerCards.ElementAt(i);
+                    card.transform.position = Vector3.Lerp(cardPosStarts[i], cardPosTargets[i], step);
+                    card.transform.rotation = Quaternion.Lerp(cardRotStarts[i], winningPlayer.deckPlaceholder.rotation, step);
                 }
                 yield return null;
             }
 
-            // Move both cards to the end of the winning player's queue, losing player's first.
-            winningPlayer.playerCards.Enqueue(losingCard);
-            winningPlayer.playerCards.Enqueue(winningCard);
             yield return new WaitForSeconds(readyInterval);
         }
 
