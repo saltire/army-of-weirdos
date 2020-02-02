@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class ColorSelectScript : MonoBehaviour {
-    int playerIndex;
-    ColorPaletteScript palette;
+    public int playerIndex;
+    public ColorPaletteScript palette;
+    public TextMeshPro marker;
+    public TextMeshPro readyText;
 
     public void Initialize(ColorPaletteScript palette, int p) {
         this.palette = palette;
@@ -28,7 +29,8 @@ public class ColorSelectScript : MonoBehaviour {
 
     public void OnStart(InputAction.CallbackContext context) {
         if (context.performed) {
-            SceneManager.LoadScene("game");
+            readyText.gameObject.SetActive(true);
+            palette.OnStart();
         }
     }
 }

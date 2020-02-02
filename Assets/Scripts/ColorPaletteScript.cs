@@ -1,30 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ColorPaletteScript : MonoBehaviour {
     public Color[] colors;
     public GameObject swatchPrefab;
-    public ColorSelectScript markerPrefab;
+    public float readyInterval = 1.5f;
 
     Vector3 startPos;
     int[] playerColorIndices = new int[] { 0, 1 };
-    ColorSelectScript[] playerMarkers = new ColorSelectScript[2];
+    public ColorSelectScript[] selectors = new ColorSelectScript[2];
 
     void Start() {
         startPos = transform.position + Vector3.left * swatchPrefab.transform.localScale.x * (colors.Length / 2.0f - 0.5f);
+
         for (int c = 0; c < colors.Length; c++) {
             GameObject swatch = Instantiate<GameObject>(swatchPrefab, GetSwatchPos(c), Quaternion.identity);
             swatch.GetComponent<MeshRenderer>().material.SetColor("_Color", colors[c]);
         }
+
         for (int p = 0; p < 2; p++) {
-            Options.playerColors[p] = colors[playerColorIndices[p]];
-            playerMarkers[p] = Instantiate<ColorSelectScript>(markerPrefab, GetSwatchPos(playerColorIndices[p]), Quaternion.identity);
-            playerMarkers[p].Initialize(this, p);
+            SetPlayerColor(p, playerColorIndices[p]);
         }
     }
 
-    Vector3 GetSwatchPos(int c) {
+    public Vector3 GetSwatchPos(int c) {
         return startPos + Vector3.right * swatchPrefab.transform.localScale.x * c;
     }
 
@@ -35,8 +37,24 @@ public class ColorPaletteScript : MonoBehaviour {
             UpdatePlayerColor(p, change);
         }
         else {
-            playerMarkers[p].transform.position = GetSwatchPos(c);
-            Options.playerColors[p] = colors[c];
+            SetPlayerColor(p, c);
         }
+    }
+
+    void SetPlayerColor(int p, int c) {
+        selectors[p].marker.transform.position = GetSwatchPos(c);
+        selectors[p].readyText.color = colors[c];
+        Options.playerColors[p] = colors[c];
+    }
+
+    public void OnStart() {
+        if (selectors.All(selector => selector.readyText.gameObject.activeSelf)) {
+            StartCoroutine(ReadyTimer());
+        }
+    }
+
+    IEnumerator ReadyTimer() {
+        yield return new WaitForSeconds(readyInterval);
+        SceneManager.LoadScene("game");
     }
 }
