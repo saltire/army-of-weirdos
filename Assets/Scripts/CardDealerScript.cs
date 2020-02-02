@@ -18,18 +18,19 @@ public class CardDealerScript : MonoBehaviour {
     public float postInterval = 0.2f;
     public float readyInterval = 0.5f;
 
+    System.Random rnd;
     List<CharacterScriptableObject> characters;
     Stack<GameObject> dealerCards = new Stack<GameObject>();
+    Queue<GameObject> tiedCards = new Queue<GameObject>();
 
     void Start() {
+        rnd = new System.Random();
         characters = new List<CharacterScriptableObject>(Resources.LoadAll<CharacterScriptableObject>("Characters"));
 
         StartCoroutine("StackCards");
     }
 
     IEnumerator StackCards() {
-        System.Random rnd = new System.Random();
-
         int cardCount = characters.Count;
         for (int i = 0; i < cardCount; i++) {
             yield return new WaitForSeconds(cardStackInterval);
@@ -114,10 +115,40 @@ public class CardDealerScript : MonoBehaviour {
                 yield return null;
             }
 
-            // Show the winner text on the winning player.
-            PlayerScript winningPlayer = players[0].finalDamage > players[1].finalDamage ? players[0] : players[1];
-            PlayerScript losingPlayer = players[0].finalDamage > players[1].finalDamage ? players[1] : players[0];
-            winningPlayer.ShowWinner();
+            PlayerScript winningPlayer;
+            PlayerScript losingPlayer;
+            Queue<GameObject> targetQueue;
+            Transform targetTransform;
+            if (players[0].finalDamage == players[1].finalDamage) {
+                int rndIndex = rnd.Next(2);
+                winningPlayer = players[rndIndex];
+                losingPlayer = players[1 - rndIndex];
+                targetQueue = tiedCards;
+                targetTransform = dealerPlaceholder;
+                foreach (PlayerScript player in players) {
+                    player.ShowTie();
+                }
+
+                // TODO: Currently tying on a player's last card causes them to lose the game.
+                // Should let them keep that card and go another round.
+            }
+            else {
+                int winIndex = players[0].finalDamage > players[1].finalDamage ? 0 : 1;
+                winningPlayer = players[winIndex];
+                losingPlayer = players[1 - winIndex];
+                targetQueue = winningPlayer.playerCards;
+                targetTransform = winningPlayer.deckPlaceholder;
+                winningPlayer.ShowWinner();
+                
+                // Move all tied cards into the target queue.
+                while (tiedCards.Count > 0) {
+                    targetQueue.Enqueue(tiedCards.Dequeue());
+                }
+            }
+            // Move the front card from each player's queue into the end of the target queue, losing card first.
+            targetQueue.Enqueue(losingPlayer.playerCards.Dequeue());
+            targetQueue.Enqueue(winningPlayer.playerCards.Dequeue());
+
             continueText.SetActive(true);
 
             // Wait for both players to hit a button to finish.
@@ -130,28 +161,23 @@ public class CardDealerScript : MonoBehaviour {
                 player.FinishRound();
             }
 
-            // Take the front card from each player's queue
-            // and add both to the end of the winning player's queue, losing card first.
-            winningPlayer.playerCards.Enqueue(losingPlayer.playerCards.Dequeue());
-            winningPlayer.playerCards.Enqueue(winningPlayer.playerCards.Dequeue());
-
-            // Animate all the cards in the winning player's pile to their new position.
+            // Animate all the cards in the winning player's queue to their new position.
             List<Vector3> cardPosStarts = new List<Vector3>();
             List<Quaternion> cardRotStarts = new List<Quaternion>();
             List<Vector3> cardPosTargets = new List<Vector3>();
-            for (int i = 0; i < winningPlayer.playerCards.Count; i++) {
-                GameObject card = winningPlayer.playerCards.ElementAt(i);
+            for (int i = 0; i < targetQueue.Count; i++) {
+                GameObject card = targetQueue.ElementAt(i);
                 cardPosStarts.Add(card.transform.position);
                 cardRotStarts.Add(card.transform.rotation);
-                cardPosTargets.Add(winningPlayer.deckPlaceholder.position + cardSpacing * (winningPlayer.playerCards.Count - i - 1));
+                cardPosTargets.Add(targetTransform.position + cardSpacing * (targetQueue.Count - i - 1));
             }
             float startTime = Time.time;
             while (Time.time < startTime + cardReturnDuration) {
                 float step = Mathf.SmoothStep(0, 1, (Time.time - startTime) / cardReturnDuration);
-                for (int i = 0; i < winningPlayer.playerCards.Count; i++) {
-                    GameObject card = winningPlayer.playerCards.ElementAt(i);
+                for (int i = 0; i < targetQueue.Count; i++) {
+                    GameObject card = targetQueue.ElementAt(i);
                     card.transform.position = Vector3.Lerp(cardPosStarts[i], cardPosTargets[i], step);
-                    card.transform.rotation = Quaternion.Lerp(cardRotStarts[i], winningPlayer.deckPlaceholder.rotation, step);
+                    card.transform.rotation = Quaternion.Lerp(cardRotStarts[i], targetTransform.rotation, step);
                 }
                 yield return null;
             }
