@@ -16,17 +16,17 @@ MonoBehaviour:
   attacks:
   - name: Rock of Ages
     rock: 5
-    scissors: 0
-    paper: 0
+    scissors: 4
+    paper: 3
   - name: Flash of the Blade
-    rock: 0
+    rock: 3
     scissors: 5
-    paper: 0
+    paper: 4
   - name: Eternal Knowledge
-    rock: 0
-    scissors: 0
+    rock: 4
+    scissors: 3
     paper: 5
   - name: Mind Storm
-    rock: 3
-    scissors: 3
-    paper: 3
+    rock: 4
+    scissors: 4
+    paper: 4

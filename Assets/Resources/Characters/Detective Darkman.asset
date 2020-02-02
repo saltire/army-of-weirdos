@@ -16,5 +16,5 @@ MonoBehaviour:
   attacks:
   - name: Backstab
     rock: 0
-    scissors: 4
+    scissors: 5
     paper: 0

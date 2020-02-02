@@ -15,18 +15,18 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: f895e8471ff5deb4da4e67d1ba2ef575, type: 3}
   attacks:
   - name: Air Dance
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 5
+    scissors: 0
+    paper: 0
   - name: Black Oblivion
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 5
+    scissors: 0
+    paper: 0
   - name: Evil Eye
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 5
+    scissors: 0
+    paper: 0
   - name: Kiss of Death
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 5
+    scissors: 0
+    paper: 0

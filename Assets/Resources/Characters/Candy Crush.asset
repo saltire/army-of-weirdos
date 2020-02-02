@@ -15,6 +15,6 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: ad668f5c603a373479b99a01a709cba1, type: 3}
   attacks:
   - name: Cocoa Kisses
-    rock: 0
+    rock: 1
     scissors: 1
-    paper: 2
+    paper: 3

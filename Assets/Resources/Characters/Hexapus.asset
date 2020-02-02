@@ -15,10 +15,10 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: f8f204e32164d264eb8b78038426e0ec, type: 3}
   attacks:
   - name: Slime Time
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 3
+    scissors: 1
+    paper: 3
   - name: Sucker Punch
-    rock: 2
+    rock: 4
     scissors: 2
-    paper: 2
+    paper: 1

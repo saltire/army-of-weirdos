@@ -15,17 +15,17 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: 9699341529d490f4489d14f8609bec4e, type: 3}
   attacks:
   - name: Scorpion Sting
-    rock: 3
-    scissors: 2
-    paper: 4
+    rock: 2
+    scissors: 3
+    paper: 3
   - name: Six-way Slash
-    rock: 3
-    scissors: 1
-    paper: 5
+    rock: 1
+    scissors: 4
+    paper: 1
   - name: Boa Constrictor
-    rock: 5
+    rock: 1
     scissors: 2
-    paper: 2
+    paper: 3
   - name: Tail Whip
     rock: 3
     scissors: 3

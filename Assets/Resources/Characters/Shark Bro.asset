@@ -16,16 +16,16 @@ MonoBehaviour:
   attacks:
   - name: Flex
     rock: 3
-    scissors: 3
-    paper: 2
+    scissors: 2
+    paper: 3
   - name: Chomp
     rock: 2
     scissors: 3
     paper: 2
   - name: Surf and Eat Turf
     rock: 1
-    scissors: 1
-    paper: 4
+    scissors: 4
+    paper: 1
   - name: Shark Fin Suplex
     rock: 4
     scissors: 2

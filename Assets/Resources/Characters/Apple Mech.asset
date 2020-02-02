@@ -19,14 +19,14 @@ MonoBehaviour:
     scissors: 2
     paper: 2
   - name: Slice
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 0
+    scissors: 5
+    paper: 0
   - name: Crabapple Crush
     rock: 2
     scissors: 2
     paper: 2
   - name: Core Strength
-    rock: 3
+    rock: 5
     scissors: 0
-    paper: 1
+    paper: 0

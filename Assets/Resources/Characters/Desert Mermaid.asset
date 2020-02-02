@@ -15,18 +15,18 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: 90839022636c542459f9753a501bfaf5, type: 3}
   attacks:
   - name: Sand WItch
-    rock: 2
+    rock: 3
     scissors: 2
-    paper: 2
+    paper: 0
   - name: Fin Slice
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 1
+    scissors: 4
+    paper: 0
   - name: Wave Wheelie
     rock: 2
-    scissors: 2
-    paper: 2
+    scissors: 3
+    paper: 0
   - name: Siren Song
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 0
+    scissors: 4
+    paper: 1

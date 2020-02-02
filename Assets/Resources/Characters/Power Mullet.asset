@@ -15,14 +15,18 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: a414af86145764244b690eba998e56fb, type: 3}
   attacks:
   - name: Headbang Hurricane
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 4
+    scissors: 0
+    paper: 0
   - name: Party In The Back
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 0
+    scissors: 0
+    paper: 4
+  - name: Can Crusher
+    rock: 0
+    scissors: 4
+    paper: 0
   - name: Kentucky Waterfall
     rock: 2
     scissors: 2
-    paper: 2
+    paper: 0

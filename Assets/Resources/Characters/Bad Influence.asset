@@ -15,18 +15,18 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: 924b2d3e94f4b914887d7d71cd02bd3b, type: 3}
   attacks:
   - name: try some, bro
-    rock: 2
-    scissors: 2
+    rock: 1
+    scissors: 1
     paper: 2
   - name: c'mon, man
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 1
+    scissors: 1
+    paper: 3
   - name: don't be a loser
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 1
+    scissors: 1
+    paper: 4
   - name: can you hold this?
-    rock: 2
+    rock: 1
     scissors: 2
     paper: 2

@@ -19,14 +19,14 @@ MonoBehaviour:
     scissors: 2
     paper: 2
   - name: Burning Hands
-    rock: 2
+    rock: 1
     scissors: 2
-    paper: 2
+    paper: 3
   - name: Lightning Bolt
-    rock: 2
-    scissors: 2
+    rock: 0
+    scissors: 4
     paper: 2
   - name: Ice 3
-    rock: 2
-    scissors: 2
-    paper: 2
+    rock: 3
+    scissors: 3
+    paper: 0
