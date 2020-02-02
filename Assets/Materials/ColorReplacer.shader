@@ -63,7 +63,7 @@
 
                 if (hueDiff < _HueThreshold) {
                     fixed3 destHSV = rgb2hsv(_DestColor);
-                    fixed4 destRGBA = fixed4(hsv2rgb(fixed3(destHSV.x, destHSV.y, thisHSV.z)), thisRGBA.a);
+                    fixed4 destRGBA = fixed4(hsv2rgb(fixed3(destHSV.x, thisHSV.y, thisHSV.z)), thisRGBA.a);
                     thisRGBA = lerp(destRGBA, thisRGBA, hueDiff / _HueThreshold);
                 }
 
