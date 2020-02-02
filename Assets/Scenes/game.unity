@@ -293,7 +293,7 @@ PrefabInstance:
     - target: {fileID: 6848101988544839852, guid: 0f341915019c28243a339f225d51cfc2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7070369303945921770, guid: 0f341915019c28243a339f225d51cfc2,
         type: 3}
@@ -405,6 +405,7 @@ MonoBehaviour:
   winInterval: 5
   nextScene: credits
   audioSource: {fileID: 1214846978}
+  mainSong: {fileID: 8300000, guid: ad39df7f49797964fa377decf94a73ad, type: 3}
   winSong: {fileID: 8300000, guid: d7b64780b14929e4abe00269f011d61c, type: 3}
 --- !u!4 &331823468
 Transform:

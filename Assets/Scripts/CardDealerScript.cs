@@ -23,6 +23,7 @@ public class CardDealerScript : MonoBehaviour {
     public float winInterval = 2.0f;
     public string nextScene;
     public AudioSource audioSource;
+    public AudioClip mainSong;
     public AudioClip winSong;
 
     System.Random rnd;
@@ -103,6 +104,12 @@ public class CardDealerScript : MonoBehaviour {
                 yield return null;
             }
             selectAttackText.SetActive(true);
+
+            if (audioSource.clip != mainSong) {
+                audioSource.clip = mainSong;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
 
             // Wait for both players to select an attack.
             while (players.Any(player => player.selectedAttack == null)) {
