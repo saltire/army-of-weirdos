@@ -140,6 +140,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1114683880645405086, guid: 0f341915019c28243a339f225d51cfc2,
+        type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 99026fde73135aa4c9c16bd7a9c390fb,
+        type: 3}
     - target: {fileID: 3003575274810013595, guid: 0f341915019c28243a339f225d51cfc2,
         type: 3}
       propertyPath: m_FlipX
@@ -229,6 +235,16 @@ PrefabInstance:
         type: 3}
       propertyPath: playerColor.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798892270336729814, guid: 0f341915019c28243a339f225d51cfc2,
+        type: 3}
+      propertyPath: player2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798892270336729814, guid: 0f341915019c28243a339f225d51cfc2,
+        type: 3}
+      propertyPath: iconPosition.x
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 6063294414762591312, guid: 0f341915019c28243a339f225d51cfc2,
         type: 3}
@@ -332,6 +348,7 @@ MonoBehaviour:
   cardDealInterval: 0.1
   cardDealDuration: 0.25
   postInterval: 0.2
+  readyInterval: 0.5
 --- !u!4 &331823468
 Transform:
   m_ObjectHideFlags: 0
@@ -529,6 +546,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1114683880645405086, guid: 0f341915019c28243a339f225d51cfc2,
+        type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 99026fde73135aa4c9c16bd7a9c390fb,
+        type: 3}
     - target: {fileID: 4252637021446598714, guid: 0f341915019c28243a339f225d51cfc2,
         type: 3}
       propertyPath: m_Enabled

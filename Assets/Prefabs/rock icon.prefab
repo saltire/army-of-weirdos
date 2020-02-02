@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7485016109137878655}
   - component: {fileID: 5225533064617043767}
+  - component: {fileID: 3628419203457473419}
   m_Layer: 0
-  m_Name: rock
+  m_Name: rock icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 488e0e51f2c0ab74cad8d45896bf9423, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89f8a34d711cbe242a70c7f729d23522, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,3 +82,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3628419203457473419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2414862038608894197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b42ecaab8c5954cbc935ad4c6f64d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brokenSprite: {fileID: 21300000, guid: 705a0b33020be0f428d967593c6c2869, type: 3}

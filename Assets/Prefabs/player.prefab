@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &843346902767108015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6848101988544839852}
+  m_Layer: 0
+  m_Name: icons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6848101988544839852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843346902767108015}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5612019559480101422}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2338287244662525097
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +143,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5612019559480101422}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -318,6 +348,7 @@ Transform:
   - {fileID: 13268158036449723}
   - {fileID: 4252637021446598715}
   - {fileID: 5419787974125662749}
+  - {fileID: 6848101988544839852}
   - {fileID: 6320624092397831908}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -334,8 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 99026fde73135aa4c9c16bd7a9c390fb,
-    type: 3}
+  m_Actions: {fileID: 0}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -439,14 +469,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587b5f7cce2a03346ad4cb077212dd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player2: 0
   playerColor: {r: 0.96055627, g: 1, b: 0, a: 1}
   playerSprite: {fileID: 8989694027725921955}
   cardPlaceholder: {fileID: 4252637021446598715}
   deckPlaceholder: {fileID: 5419787974125662749}
+  iconContainer: {fileID: 6848101988544839852}
   readyText: {fileID: 4297292169159644771}
   cardFlipDuration: 0.3
   showAttackValues: 0
   waitingForAttack: 0
+  rockPrefab: {fileID: 3628419203457473419, guid: c68aec866eb12b341b07afeab81df7b9,
+    type: 3}
+  scissorsPrefab: {fileID: 3192237124947158689, guid: ca39217208301284bac79117ea26f961,
+    type: 3}
+  paperPrefab: {fileID: 2317804801409791033, guid: 8bc8ad926ef561244b8444f13adfbadf,
+    type: 3}
+  iconPosition: {x: 2, y: 10, z: 0}
+  iconSpacing: 0.75
+  iconScale: 1
+  iconMoveDistance: 1.5
+  iconMoveDuration: 0.2
 --- !u!1001 &624672693256921106
 PrefabInstance:
   m_ObjectHideFlags: 0

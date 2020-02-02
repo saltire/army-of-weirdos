@@ -18,6 +18,7 @@ public class AttackScript : MonoBehaviour {
     public Vector3 iconPosition;
     public float iconSpacing;
     public float iconMaxWidth;
+    public float iconScale = 1;
 
     public Attack attack { get; private set; }
 
@@ -37,18 +38,21 @@ public class AttackScript : MonoBehaviour {
             icon.transform.parent = iconContainer;
             icon.transform.localPosition = iconPosition + Vector3.right * spacing * (iconContainer.childCount - 1);
             icon.transform.localRotation = Quaternion.identity;
+            icon.transform.localScale = Vector3.one * iconScale;
         }
         for (int j = 0; j < attack.scissors; j++) {
             GameObject icon = Instantiate<GameObject>(scissorsPrefab);
             icon.transform.parent = iconContainer;
             icon.transform.localPosition = iconPosition + Vector3.right * spacing * (iconContainer.childCount - 1);
             icon.transform.localRotation = Quaternion.identity;
+            icon.transform.localScale = Vector3.one * iconScale;
         }
         for (int j = 0; j < attack.paper; j++) {
             GameObject icon = Instantiate<GameObject>(paperPrefab);
             icon.transform.parent = iconContainer;
             icon.transform.localPosition = iconPosition + Vector3.right * spacing * (iconContainer.childCount - 1);
             icon.transform.localRotation = Quaternion.identity;
+            icon.transform.localScale = Vector3.one * iconScale;
         }
 
         ToggleAttackIcons(false);

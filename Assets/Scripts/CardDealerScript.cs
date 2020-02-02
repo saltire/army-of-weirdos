@@ -13,6 +13,7 @@ public class CardDealerScript : MonoBehaviour {
     public float cardDealInterval = 0.1f;
     public float cardDealDuration = 0.3f;
     public float postInterval = 0.2f;
+    public float readyInterval = 0.5f;
 
     List<CharacterScriptableObject> characters;
     Stack<GameObject> dealerCards = new Stack<GameObject>();
@@ -40,7 +41,7 @@ public class CardDealerScript : MonoBehaviour {
         }
         yield return new WaitForSeconds(postInterval);
         
-        StartCoroutine("DealCards");
+        StartCoroutine(DealCards());
     }
 
     IEnumerator DealCards() {
@@ -76,7 +77,7 @@ public class CardDealerScript : MonoBehaviour {
             }
         }
 
-        StartCoroutine("Game");
+        StartCoroutine(Game());
     }
 
     IEnumerator Game() {
@@ -85,7 +86,6 @@ public class CardDealerScript : MonoBehaviour {
             foreach (PlayerScript player in players) {
                 player.StartCoroutine("FlipTopCard");
             }
-
             // Wait for both players to select an attack.
             while (players.Any(player => player.selectedAttack == null)) {
                 yield return null;
@@ -95,6 +95,17 @@ public class CardDealerScript : MonoBehaviour {
             foreach (PlayerScript player in players) {
                 player.waitingForAttack = false;
             }
+            yield return new WaitForSeconds(readyInterval);
+
+            // Display the attack animations and calculate damage.
+            players[0].StartAttack(players[0].selectedAttack.Value, players[1].selectedAttack.Value);
+            players[1].StartAttack(players[1].selectedAttack.Value, players[0].selectedAttack.Value);
+            // Wait for both players to calculate their final damage.
+            while (players.Any(player => player.finalDamage == null)) {
+                yield return null;
+            }
+
+            Util.Log("Winner:", (players[0].finalDamage > players[1].finalDamage) ? "Player 1" : "Player 2");
 
             while (true) {
                 yield return null;

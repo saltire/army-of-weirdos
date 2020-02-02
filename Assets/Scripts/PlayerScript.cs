@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public class PlayerScript : MonoBehaviour {
+    public bool player2;
     public Color playerColor;
 
     public SpriteRenderer playerSprite;
     public Transform cardPlaceholder;
     public Transform deckPlaceholder;
+    public Transform iconContainer;
     public GameObject readyText;
 
     public float cardFlipDuration = 0.3f;
@@ -19,6 +22,16 @@ public class PlayerScript : MonoBehaviour {
 
     public Queue<GameObject> playerCards { get; } = new Queue<GameObject>();
     public Attack? selectedAttack { get; private set; }
+    public int? finalDamage { get; private set; }
+
+    public IconScript rockPrefab;
+    public IconScript scissorsPrefab;
+    public IconScript paperPrefab;
+    public Vector3 iconPosition;
+    public float iconSpacing;
+    public float iconScale = 1;
+    public float iconMoveDistance = 2;
+    public float iconMoveDuration = 0.2f;
 
     CharacterCardScript currentCard;
 
@@ -48,6 +61,7 @@ public class PlayerScript : MonoBehaviour {
         waitingForAttack = true;
         selectedAttack = null;
         readyText.SetActive(false);
+        finalDamage = null;
     }
 
     public void ToggleAttackIcons(InputAction.CallbackContext context) {
@@ -69,5 +83,64 @@ public class PlayerScript : MonoBehaviour {
                 readyText.SetActive(true);
             }
         }
+    }
+
+    public void StartAttack(Attack attack, Attack counterattack) {
+        readyText.SetActive(false);
+        
+        StartCoroutine(ExecuteAttack(attack, counterattack));
+    }
+
+    IEnumerator ExecuteAttack(Attack attack, Attack counterattack) {
+        Vector3 xSpacing = (player2 ? Vector3.right : Vector3.left) * iconSpacing;
+        Vector3 ySpacing = Vector3.down * iconSpacing;
+
+        List<IconScript> rockIcons = new List<IconScript>();
+        List<IconScript> scissorsIcons = new List<IconScript>();
+        List<IconScript> paperIcons = new List<IconScript>();
+
+        for (int j = 0; j < attack.rock; j++) {
+            IconScript icon = Instantiate<IconScript>(rockPrefab);
+            icon.transform.parent = iconContainer;
+            icon.transform.localPosition = iconPosition + xSpacing * j;
+            icon.transform.localScale = Vector3.one * iconScale;
+            rockIcons.Add(icon);
+        }
+        for (int j = 0; j < attack.scissors; j++) {
+            IconScript icon = Instantiate<IconScript>(scissorsPrefab);
+            icon.transform.parent = iconContainer;
+            icon.transform.localPosition = iconPosition + xSpacing * j + ySpacing;
+            icon.transform.localScale = Vector3.one * iconScale;
+            scissorsIcons.Add(icon);
+        }
+        for (int j = 0; j < attack.paper; j++) {
+            IconScript icon = Instantiate<IconScript>(paperPrefab);
+            icon.transform.parent = iconContainer;
+            icon.transform.localPosition = iconPosition + xSpacing * j + ySpacing * 2;
+            icon.transform.localScale = Vector3.one * iconScale;
+            paperIcons.Add(icon);
+        }
+
+        Vector3 startPos = iconContainer.position;
+        Vector3 targetPos = iconContainer.position + (player2 ? Vector3.left : Vector3.right) * iconMoveDistance;
+        float startTime = Time.time;
+        while (Time.time < startTime + iconMoveDuration) {
+            iconContainer.position = Vector3.Lerp(startPos, targetPos, Mathf.SmoothStep(0, 1, (Time.time - startTime) / iconMoveDuration));
+            yield return null;
+        }
+
+        rockIcons.GetRange(0, Mathf.Min(rockIcons.Count, counterattack.paper)).ForEach(icon => icon.ToggleBroken(true));
+        scissorsIcons.GetRange(0, Mathf.Min(scissorsIcons.Count, counterattack.rock)).ForEach(icon => icon.ToggleBroken(true));
+        paperIcons.GetRange(0, Mathf.Min(paperIcons.Count, counterattack.scissors)).ForEach(icon => icon.ToggleBroken(true));
+
+        startTime = Time.time;
+        while (Time.time < startTime + iconMoveDuration) {
+            iconContainer.position = Vector3.Lerp(targetPos, startPos, Mathf.SmoothStep(0, 1, (Time.time - startTime) / iconMoveDuration));
+            yield return null;
+        }
+
+        finalDamage = Mathf.Max(attack.rock - counterattack.paper, 0) + 
+            Mathf.Max(attack.scissors - counterattack.rock, 0) + 
+            Mathf.Max(attack.paper - counterattack.scissors, 0);
     }
 }
