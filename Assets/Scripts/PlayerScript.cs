@@ -23,7 +23,6 @@ public class PlayerScript : MonoBehaviour {
     public bool waitingForAttack { get; private set; } = false;
     public Attack? selectedAttack { get; private set; }
     public int? finalDamage { get; private set; }
-    // public bool waitingForFinish { get; private set; } = false;
 
     public IconScript rockPrefab;
     public IconScript scissorsPrefab;
@@ -40,6 +39,9 @@ public class PlayerScript : MonoBehaviour {
             playerColor = Options.playerColors[playerIndex];
         }
         playerSprite.material.SetColor("_DestColor", playerColor);
+        readyText.GetComponent<TextMeshPro>().color = playerColor;
+        winnerText.GetComponent<TextMeshPro>().color = playerColor;
+        tieText.GetComponent<TextMeshPro>().color = playerColor;
     }
 
     IEnumerator FlipTopCard() {
@@ -78,18 +80,12 @@ public class PlayerScript : MonoBehaviour {
     }
 
     public void OnAttackSelect(InputAction.CallbackContext context) {
-        if (context.performed) {
-            if (waitingForAttack) {
-                Attack? attack = currentCard.GetButtonAttack(context.control.displayName);
-                if (attack != null) {
-                    selectedAttack = attack;
-                    readyText.SetActive(true);
-                }
+        if (context.performed && waitingForAttack) {
+            Attack? attack = currentCard.GetButtonAttack(context.control.displayName);
+            if (attack != null) {
+                selectedAttack = attack;
+                readyText.SetActive(true);
             }
-            // else if (waitingForFinish) {
-            //     waitingForFinish = false;
-            //     readyText.SetActive(true);
-            // }
         }
     }
 
@@ -150,10 +146,9 @@ public class PlayerScript : MonoBehaviour {
             iconContainer.position = Vector3.Lerp(targetPos, startPos, Mathf.SmoothStep(0, 1, (Time.time - startTime) / iconMoveDuration));
             yield return null;
         }
-        
-        // waitingForFinish = true;
-        finalDamage = Mathf.Max(attack.rock - counterattack.paper, 0) + 
-            Mathf.Max(attack.scissors - counterattack.rock, 0) + 
+
+        finalDamage = Mathf.Max(attack.rock - counterattack.paper, 0) +
+            Mathf.Max(attack.scissors - counterattack.rock, 0) +
             Mathf.Max(attack.paper - counterattack.scissors, 0);
     }
 
@@ -170,7 +165,7 @@ public class PlayerScript : MonoBehaviour {
         winnerText.SetActive(false);
         tieText.SetActive(false);
         playerSprite.enabled = false;
-        
+
         foreach (Transform icon in iconContainer.transform) {
             Destroy(icon.gameObject);
         }

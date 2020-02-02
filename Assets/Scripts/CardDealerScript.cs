@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CardDealerScript : MonoBehaviour {
     public PlayerScript[] players;
@@ -9,7 +11,7 @@ public class CardDealerScript : MonoBehaviour {
     public GameObject cardPrefab;
     public Transform dealerPlaceholder;
     public GameObject selectAttackText;
-    public GameObject continueText;
+    public GameObject winText;
     public Vector3 cardSpacing = new Vector3(0, 1f, -0.2f);
     public float cardStackInterval = 0.1f;
     public float cardDealInterval = 0.1f;
@@ -18,6 +20,8 @@ public class CardDealerScript : MonoBehaviour {
     public float postInterval = 0.2f;
     public float readyInterval = 0.5f;
     public float finishInterval = 2.0f;
+    public float winInterval = 2.0f;
+    public string nextScene;
 
     System.Random rnd;
     List<CharacterScriptableObject> characters;
@@ -39,13 +43,13 @@ public class CardDealerScript : MonoBehaviour {
             GameObject card = Instantiate<GameObject>(cardPrefab, dealerPlaceholder.position + cardSpacing * dealerCards.Count, dealerPlaceholder.rotation);
             card.transform.parent = transform;
             dealerCards.Push(card);
-            
+
             CharacterScriptableObject character = characters[rnd.Next(characters.Count)];
             card.GetComponent<CharacterCardScript>().SetCharacter(character);
             characters.Remove(character);
         }
         yield return new WaitForSeconds(postInterval);
-        
+
         StartCoroutine(DealCards());
     }
 
@@ -140,7 +144,7 @@ public class CardDealerScript : MonoBehaviour {
                 targetQueue = winningPlayer.playerCards;
                 targetTransform = winningPlayer.deckPlaceholder;
                 winningPlayer.ShowWinner();
-                
+
                 // Move all tied cards into the target queue.
                 while (tiedCards.Count > 0) {
                     targetQueue.Enqueue(tiedCards.Dequeue());
@@ -150,13 +154,6 @@ public class CardDealerScript : MonoBehaviour {
             targetQueue.Enqueue(losingPlayer.playerCards.Dequeue());
             targetQueue.Enqueue(winningPlayer.playerCards.Dequeue());
 
-            // continueText.SetActive(true);
-            // Wait for both players to hit a button to finish.
-            // while (players.Any(player => player.waitingForFinish)) {
-            //     yield return null;
-            // }
-            // continueText.SetActive(false);
-            
             yield return new WaitForSeconds(finishInterval);
             foreach (PlayerScript player in players) {
                 player.FinishRound();
@@ -186,6 +183,14 @@ public class CardDealerScript : MonoBehaviour {
             yield return new WaitForSeconds(readyInterval);
         }
 
-        Util.Log("Game Over!");
+        int winnerIndex = players[0].playerCards.Count > 0 ? 0 : 1;
+        TextMeshPro winTextMesh = winText.GetComponent<TextMeshPro>();
+        winTextMesh.text = $"PLAYER {winnerIndex + 1} WINS!";
+        winTextMesh.color = Options.playerColors[winnerIndex];
+        winText.SetActive(true);
+
+        yield return new WaitForSeconds(winInterval);
+
+        SceneManager.LoadScene(nextScene);
     }
 }

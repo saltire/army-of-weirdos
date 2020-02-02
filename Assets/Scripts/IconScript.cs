@@ -11,7 +11,7 @@ public class IconScript : MonoBehaviour {
     void Start() {
         initialSprite = GetComponent<SpriteRenderer>().sprite;
     }
-    
+
     public void ToggleBroken(bool broken) {
         GetComponent<SpriteRenderer>().sprite = broken ? brokenSprite : initialSprite;
     }

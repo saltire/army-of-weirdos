@@ -3,7 +3,7 @@ Shader "Unlit/Two Sided" {
         _FrontTex ("Front", 2D) = "white" {}
         _BackTex ("Back", 2D) = "white" {}
     }
-    
+
     SubShader {
         Blend SrcAlpha OneMinusSrcAlpha
         Cull Off
@@ -12,7 +12,7 @@ Shader "Unlit/Two Sided" {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            
+
             sampler2D _FrontTex;
             sampler2D _BackTex;
 
@@ -32,7 +32,7 @@ Shader "Unlit/Two Sided" {
                 o.uv = v.uv;
                 return o;
             }
-        
+
             fixed4 frag (v2f i, fixed isFront : VFACE) : SV_TARGET {
                 if (isFront > 0.0f) {
                     return tex2D(_FrontTex, i.uv);
