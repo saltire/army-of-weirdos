@@ -256,6 +256,11 @@ PrefabInstance:
       propertyPath: iconPosition.x
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 5798892270336729814, guid: 0f341915019c28243a339f225d51cfc2,
+        type: 3}
+      propertyPath: playerIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6063294414762591312, guid: 0f341915019c28243a339f225d51cfc2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

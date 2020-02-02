@@ -676,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587b5f7cce2a03346ad4cb077212dd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player2: 0
+  playerIndex: 0
   playerColor: {r: 0.96055627, g: 1, b: 0, a: 1}
   playerSprite: {fileID: 8989694027725921955}
   cardPlaceholder: {fileID: 7879194876143164308}
@@ -968,7 +968,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7464043103395958596, guid: 97dbbe893b09da747b59b0f6924551fe, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 97dbbe893b09da747b59b0f6924551fe, type: 3}
 --- !u!4 &7773003527644258688 stripped
 Transform:
@@ -1043,7 +1044,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7464043103395958596, guid: 97dbbe893b09da747b59b0f6924551fe, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 97dbbe893b09da747b59b0f6924551fe, type: 3}
 --- !u!4 &7879194876143164308 stripped
 Transform:

@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public class PlayerScript : MonoBehaviour {
-    public bool player2;
+    public int playerIndex;
     public Color playerColor;
 
     public SpriteRenderer playerSprite;
@@ -36,9 +36,10 @@ public class PlayerScript : MonoBehaviour {
     CharacterCardScript currentCard;
 
     void Start() {
-        if (playerColor != null) {
-            playerSprite.material.SetColor("_DestColor", playerColor);
+        if (Options.playerColors[playerIndex] != null) {
+            playerColor = Options.playerColors[playerIndex];
         }
+        playerSprite.material.SetColor("_DestColor", playerColor);
     }
 
     IEnumerator FlipTopCard() {
@@ -103,7 +104,7 @@ public class PlayerScript : MonoBehaviour {
     }
 
     IEnumerator ExecuteAttack(Attack attack, Attack counterattack) {
-        Vector3 xSpacing = (player2 ? Vector3.right : Vector3.left) * iconSpacing;
+        Vector3 xSpacing = (playerIndex == 1 ? Vector3.right : Vector3.left) * iconSpacing;
         Vector3 ySpacing = Vector3.down * iconSpacing;
 
         List<IconScript> rockIcons = new List<IconScript>();
@@ -133,7 +134,7 @@ public class PlayerScript : MonoBehaviour {
         }
 
         Vector3 startPos = iconContainer.position;
-        Vector3 targetPos = iconContainer.position + (player2 ? Vector3.left : Vector3.right) * iconMoveDistance;
+        Vector3 targetPos = iconContainer.position + (playerIndex == 1 ? Vector3.left : Vector3.right) * iconMoveDistance;
         float startTime = Time.time;
         while (Time.time < startTime + iconMoveDuration) {
             iconContainer.position = Vector3.Lerp(startPos, targetPos, Mathf.SmoothStep(0, 1, (Time.time - startTime) / iconMoveDuration));
