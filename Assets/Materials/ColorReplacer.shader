@@ -9,6 +9,7 @@
     SubShader {
         Blend SrcAlpha OneMinusSrcAlpha
         Cull Off
+        Tags { "Queue" = "Transparent" }
 
         Pass {
             CGPROGRAM
